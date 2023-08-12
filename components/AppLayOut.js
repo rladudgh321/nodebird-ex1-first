@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
 import { Menu, Input, Col, Row, Button } from 'antd';
 import UserProfile from '../components/UserProfile';
 import LoginForm from '../components/LoginForm';
+import { useSelector } from 'react-redux';
+
 
 const AppLayOut = ({children}) =>{
-    const [isLoggedIn, setIsLoggedIn] = useState(false); 
+    const { isLoggedIn } = useSelector((state)=>state.user);
     const items = [
         {
             label:(<Link href="/"><a>노드버드</a></Link>),
@@ -31,7 +33,7 @@ const AppLayOut = ({children}) =>{
             <Menu mode="horizontal"  items={items} />
             <Row gutter={8}>
                 <Col xs={24} md={6}>
-                    {isLoggedIn ? <UserProfile setIsLoggedIn={setIsLoggedIn} /> : <LoginForm setIsLoggedIn={setIsLoggedIn}/>}
+                    {isLoggedIn ? <UserProfile /> : <LoginForm />}
                 </Col>
                 <Col xs={24} md={12}>{children}</Col>
                 <Col xs={24} md={6}>
